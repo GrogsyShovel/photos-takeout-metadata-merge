@@ -17,14 +17,14 @@ Inspired by [google-metadata-matcher](https://github.com/Greegko/google-metadata
     Finds the correct photo/video even when JSON names are irregular:
     *   `.supplemental-metadata.json`, `.suppl.json`, `.supp.json`, numbered `(...).json`.
     *   JSON basenames with extra dots or trailing dots (`IMG_3063..json`).
-    *   JSON basenames that **lack** a media extension (e.g., `IMG_3063.json`).
+    *   JSON basenames that lack a media extension (e.g., `IMG_3063.json`).
     *   Compound stems (e.g., `IMG_3063.h.json` → `IMG_3063.h.jpeg`).
 
 *   **Normalization**  
     Copies media to output with corrected names:
     *   Fix wrong/missing extensions (`.png` mislabeled but actually JPEG).
     *   Collapse duplicate/misaligned extensions (`.heic.jpeg` → `.jpg`, `.heic.heic` → `.heic`).
-    *   Add extensions to extensionless **Live Photo videos** (`IMG_0052` → `IMG_0052.mov` or `.mp4`).
+    *   Add extensions to extensionless Live Photo videos (`IMG_0052` → `IMG_0052.mov` or `.mp4`).
 
 ***
 
@@ -58,7 +58,7 @@ python merge_metadata.py "/path/to/Google Photos" "/path/to/output" --edited_wor
 ```
 
 *   `source_folder`: the root of your unzipped Google Takeout (e.g., `Google Photos`).
-*   `output_folder`: destination for **normalized** copies with restored metadata.
+*   `output_folder`: destination for normalized copies with restored metadata.
 *   `--edited_word`: the localized/actual suffix Google uses for edited photos (default: `edited`; use `EDITED` if your export uses uppercase).
 
 **What you’ll see:**
@@ -97,12 +97,12 @@ python merge_metadata.py "/path/to/Google Photos" "/path/to/output" --edited_wor
 
 ## Live Photo Linking
 
-*   When a **photo JSON** is processed, the program looks for the **companion video** in the same folder:
-    *   **Exact stem** with no extension: `IMG_0052`
+*   When an image is processed, the program looks for the companion video in the same folder:
+    *   Exact stem with no extension: `IMG_0052`
     *   Or `IMG_0052.mov/.mp4/.m4v` (case-insensitive).
-*   It confirms the match by **header sniffing** (MOV/MP4), then:
+*   It confirms the match by header sniffing (MOV/MP4), then:
     *   Copies the video to normalized output (e.g., `IMG_0052.mov`).
-    *   Writes the **same timestamp/GPS** to the video (lossless).
+    *   Writes the same timestamp/GPS to the video (lossless).
 
 ***
 
@@ -129,16 +129,7 @@ A: Yes. ExifTool writes metadata blocks/atoms and file timestamps. No image/audi
 A: No. The program copies to `output_folder` with normalized names and writes metadata there.
 
 **Q: Why do some JSONs not match anything?**  
-A: Takeout occasionally produces irregular sidecar names or splits media across folders. The matcher handles many cases; share examples if you find new patterns.
-
-***
-
-## Project Layout
-
-    .
-    ├─ aux_functions.py      # Helpers: progress, JSON normalization, header sniffers (hex-safe), matching, ExifTool args, copying
-    ├─ process_folder.py     # Recursively find JSON sidecars, merge metadata, link Live Photo videos, print summary
-    └─ merge_metadata.py     # CLI entry point
+A: Takeout occasionally produces irregular sidecar names or splits media across folders. The matcher handles many cases; feel free to share examples if you find new patterns.
 
 ***
 
