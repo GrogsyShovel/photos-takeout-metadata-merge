@@ -120,46 +120,6 @@ def fix_title(title: str) -> str:
 # Media resolver (JSON -> actual file)
 # ------------------------------------------------------------
 
-# def search_media(path: str, title: str, edited_word: str) -> Optional[str]:
-#     title = strip_json_suffix(fix_title(title))
-#     file_name, ext = os.path.splitext(title)
-#     candidates: List[str] = [
-#         f"{file_name}{ext}",
-#         f"{file_name}-{edited_word}{ext}",
-#         f"{file_name}-{edited_word.upper()}{ext}",
-#         f"{file_name} - {edited_word}{ext}",
-#         f"{file_name} ({edited_word}){ext}",
-#         f"{file_name}(1){ext}",
-#         f"{file_name} (1){ext}",
-#     ]
-#     for n in range(2, 21):
-#         candidates.append(f"{file_name}({n}){ext}")
-#         candidates.append(f"{file_name} ({n}){ext}")
-#     for cand in candidates:
-#         fp = os.path.join(path, cand)
-#         if os.path.exists(fp):
-#             return fp
-#     try:
-#         entries = {e.name.casefold(): e.path for e in os.scandir(path) if e.is_file()}
-#     except FileNotFoundError:
-#         return None
-#     for cand in candidates:
-#         p = entries.get(cand.casefold())
-#         if p:
-#             return p
-#     swaps = {".jpg": ".jpeg", ".jpeg": ".jpg", ".tif": ".tiff", ".tiff": ".tif"}
-#     if ext.casefold() in swaps:
-#         new_ext = swaps[ext.casefold()]
-#         for cand in [c[:-len(ext)] + new_ext for c in candidates]:
-#             fp = os.path.join(path, cand)
-#             if os.path.exists(fp):
-#                 return fp
-#             p = entries.get(cand.casefold())
-#             if p:
-#                 return p
-#     return None
-
-
 def search_media(path: str, title: str, edited_word: str) -> Optional[str]:
     """
     Robust resolver for weird JSON basenames:
