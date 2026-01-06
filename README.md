@@ -11,7 +11,7 @@ Inspired by [google-metadata-matcher](https://github.com/Greegko/google-metadata
 *   **Lossless metadata writes with ExifTool**:
     *   Images: `DateTimeOriginal`, `CreateDate`, `ModifyDate`, `GPSLatitude`, `GPSLongitude`, `GPSAltitude`.
     *   Videos (QuickTime/MP4): same core date tags; uses `-api QuickTimeUTC=1` for proper UTC handling.
-    *   Filesystem timestamps: `FileCreateDate` and `FileModifyDate` copied from `CreateDate`.
+    *   Filesystem timestamps: `FileCreateDate` and `FileModifyDate` copied from `DateTimeOriginal`.
 
 *   **Smart JSON matching**  
     Finds the correct photo/video even when JSON names are irregular:
